@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.limit.CustomerMapper">
+ <resultMap type="Customer" id="customerResultMap">
+ 	<id property="id" column="c_id"/>
+ 	<result property="district" column="c_d_id"/>
+ 	<result property="warehouseId" column="c_w_id"/>
+ 	<result property="firstName" column="c_first"/>
+ 	<result property="middleName" column="c_middle"/>
+ 	<result property="lastName" column="c_last"/>
+ 	<result property="streetOne" column="c_street_1"/>
+ 	<result property="streetTwo" column="c_street_2"/>
+ 	<result property="city" column="c_city"/>
+ 	<result property="state" column="c_state"/>
+ 	<result property="zip" column="c_zip"/>
+ 	<result property="phone" column="c_phone"/>
+ 	<result property="since" column="c_since"/>
+ 	<result property="credit" column="c_credit"/>
+ 	<result property="creditLim" column="c_credit_lim"/>
+ 	<result property="discount" column="c_discount"/>
+ 	<result property="balance" column="c_balance"/>
+ 	<result property="ytdPayment" column="c_ytd_payment"/>
+ 	<result property="paymentCount" column="c_payment_cnt"/>
+ 	<result property="deliveryCount" column="c_delivery_cnt"/>
+ 	<result property="data" column="c_data"/>
+ </resultMap>
+ <select id="selectUserById" resultType="map">
+ 	select *
+ 	from customer
+ 	where c_id = #{id}
+ </select>
+  <select id="selectUsersDiscount" resultMap="customerResultMap">
+ 	select *
+ 	from customer
+ 	where c_discount > #{discount}
+ </select>
+</mapper>

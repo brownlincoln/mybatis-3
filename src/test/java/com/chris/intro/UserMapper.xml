@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.intro.UserMapper">
+  <select id="selectUser" resultType="map">
+    select 
+    user_id id, 
+    user_name name, 
+    user_age age, 
+    user_job job
+    from user where user_id = #{id}
+  </select>
+    <select id="selectUsers" resultType="map">
+    select 
+    user_id id,
+    user_name name,
+    user_age age,
+    user_job job
+    from user where user_name=#{name}
+  </select>
+  
+  <select id="selectUserList" resultType="User">
+    select 
+    user_id id, 
+    user_name name, 
+    user_age age, 
+    user_job job
+    from user where user_id = #{id}
+  </select>
+</mapper>
