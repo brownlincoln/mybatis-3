@@ -32,6 +32,20 @@ public class MyBatisDemo{
 	}
 	
 	@Test
+	public void testSelectOne()  throws IOException{
+		InputStream inputStream = Resources
+				.getResourceAsStream("com/chris/limit/mybatis-config-tpcc.xml");
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession session = factory.openSession();
+		try {
+			Customer customer = session.selectOne("com.chris.limit.CustomerMapper.selectUserById", -1);
+			System.out.println(customer);
+		} finally {
+			session.close();
+		}
+	}
+	
+	@Test
 	public void testCustomerLimit()  throws IOException{
 		InputStream inputStream = Resources
 				.getResourceAsStream("com/chris/limit/mybatis-config-tpcc.xml");
@@ -48,4 +62,23 @@ public class MyBatisDemo{
 			session.close();
 		}
 	}
+	@Test
+	public void testCustomerLimitWithMapper()  throws IOException{
+		InputStream inputStream = Resources
+				.getResourceAsStream("com/chris/limit/mybatis-config-tpcc.xml");
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession session = factory.openSession();
+		RowBounds rowBounds = new RowBounds(100, 10);
+		try {
+			//logger.info("query info about customer");
+			CustomerMapper mapper = session.getMapper(CustomerMapper.class);
+			List<Customer> customers = mapper.selectUsersDiscount(0.3, 0, 10);
+			for(Customer c: customers) {
+				System.out.println(c);
+			}
+		} finally {
+			session.close();
+		}
+	}
+	
 }

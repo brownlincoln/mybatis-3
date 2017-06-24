@@ -18,14 +18,7 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>org.mybatis</groupId>
-    <artifactId>mybatis-parent</artifactId>
-    <version>29-SNAPSHOT</version>
-    <relativePath />
-  </parent>
-
+  <groupId>org.mybatis</groupId>
   <artifactId>mybatis</artifactId>
   <version>3.4.5-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -142,6 +135,13 @@
   </properties>
 
   <dependencies>
+  <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.39</version>
+</dependency>
+  
     <dependency>
       <groupId>ognl</groupId>
       <artifactId>ognl</artifactId>
@@ -265,7 +265,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <testCompilerArgument>${maven.compiler.testCompilerArgument}</testCompilerArgument>
+          <testCompilerArgument>1.8</testCompilerArgument>
         </configuration>
       </plugin>
       <plugin>
@@ -369,13 +369,16 @@
 
   <profiles>
     <profile>
-      <id>java16</id>
+      <id>java18</id>
       <activation>
-        <jdk>1.6</jdk>
+        <property>
+        	<name>env</name>
+        	<value>dev</value>
+		</property>
       </activation>
       <properties>
-        <maven.compiler.testTarget>1.6</maven.compiler.testTarget>
-        <maven.compiler.testSource>1.6</maven.compiler.testSource>
+        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+        <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testCompilerArgument />
       </properties>
       <build>
@@ -386,35 +389,22 @@
               <artifactId>maven-compiler-plugin</artifactId>
               <configuration>
                 <testExcludes>
-                  <testExclude>**/usesjava7/**/*.java</testExclude>
-                  <testExclude>**/usesjava8/**/*.java</testExclude>
+                  <testExclude></testExclude>
                 </testExcludes>
               </configuration>
             </plugin>
-            <plugin>
-              <groupId>org.apache.felix</groupId>
-              <artifactId>maven-bundle-plugin</artifactId>
-              <version>2.5.4</version> <!-- For java 6, remain at older version -->
-            </plugin>
           </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-              <groupId>org.apache.felix</groupId>
-              <artifactId>maven-bundle-plugin</artifactId>
-              <version>2.5.4</version> <!-- For java 6, remain at older version -->
-            </plugin>
-        </plugins>
       </build>
     </profile>
     <profile>
-      <id>java17</id>
+      <id>javadefault</id>
       <activation>
-        <jdk>1.7</jdk>
+        <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
-        <maven.compiler.testSource>1.7</maven.compiler.testSource>
+        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+        <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testCompilerArgument />
       </properties>
       <build>
@@ -425,7 +415,7 @@
               <artifactId>maven-compiler-plugin</artifactId>
               <configuration>
                 <testExcludes>
-                  <testExclude>**/usesjava8/**/*.java</testExclude>
+                  <testExclude></testExclude>
                 </testExcludes>
               </configuration>
             </plugin>
